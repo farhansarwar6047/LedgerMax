@@ -14,6 +14,33 @@
     });
   }
 
+
+  /* Button effects: arrow nudge + click ripple */
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $$(".btn, .text-link, .aud .go, .svc-card .more").forEach(function (el) {
+    el.childNodes.forEach(function (n) {
+      if (n.nodeType === 3 && n.nodeValue.indexOf("→") > -1) {
+        var span = document.createElement("span");
+        span.innerHTML = n.nodeValue.replace("→", '<span class="arrow" aria-hidden="true">→</span>');
+        el.replaceChild(span, n);
+      }
+    });
+  });
+  if (!reduce) {
+    document.addEventListener("pointerdown", function (e) {
+      var b = e.target.closest(".btn, .chip-btns button, .seg button");
+      if (!b) return;
+      var r = b.getBoundingClientRect(), d = Math.max(r.width, r.height);
+      var rip = document.createElement("span");
+      rip.className = "ripple";
+      rip.style.width = rip.style.height = d + "px";
+      rip.style.left = (e.clientX - r.left - d / 2) + "px";
+      rip.style.top = (e.clientY - r.top - d / 2) + "px";
+      b.appendChild(rip);
+      setTimeout(function () { rip.remove(); }, 650);
+    });
+  }
+
   /* Footer year */
   $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
@@ -48,6 +75,16 @@
   bindGroup("ind", function (v) {
     $$("[data-ind]").forEach(function (el) { el.hidden = el.getAttribute("data-ind") !== v; });
   });
+  /* Open the industry named in the URL (e.g. /industries#trucking) */
+  (function () {
+    var h = (location.hash || "").slice(1);
+    if (!h) return;
+    var tab = $('[data-group="ind"][data-value="' + h + '"]');
+    if (!tab) return;
+    tab.click();
+    var box = $(".ind-tabs");
+    if (box) setTimeout(function () { box.scrollIntoView({ block: "start" }); }, 50);
+  })();
 
   /* Federal tax filter */
   bindGroup("fed", function (v) {
@@ -124,14 +161,14 @@
 
   /* Chat assistant (rule-based, answers from site content) */
   var R = {
-    pricing: "Our monthly plans are fixed fees, all capped at $1,000/month:\n• Essentials: $250 – $400\n• Growth: $450 – $700\n• Virtual CFO: $750 – $1,000\nThe exact price depends on your monthly transactions. <a href='/#book'>Book a free call</a> for a fixed quote within 48 hours.",
+    pricing: "Our monthly plans are fixed fees, all capped at $1,000/month:\n• Essentials: $250 – $400\n• Growth: $450 – $700\n• Virtual CFO: $750 – $1,000\nThe exact price depends on your monthly transactions. <a href='/contact#book'>Book a free call</a> for a fixed quote within 48 hours.",
     services: "We offer monthly bookkeeping, catch-up & clean-up, Excel & spreadsheet accounting, AP/AR, financial reporting, Virtual CFO, tax-ready books & 1099 support, sales tax reporting support, payroll support, and QuickBooks/Xero setup. <a href='/services'>See all services</a>",
     cpa: "For CPA and EA firms we provide white-label 1040, 1120, 1120-S and 1065 prep and client bookkeeping, in your software, overnight. 1040s from $40 – $120, business returns $150 – $400. Your first sample return or clean-up is free. <a href='/us-cpa-firms'>Learn more</a>",
     tax: "Key 2027 federal dates: Feb 1 (W-2s and 1099-NEC), Mar 15 (S corp & partnership returns), Apr 15 (individual & C corp returns). <a href='/tax-calendar'>See the full tax calendar</a>",
     industries: "We specialise in e-commerce, construction, real estate, medical & dental, restaurants, professional services, trucking and SaaS. <a href='/industries'>See workflows and plans</a>",
     software: "We work in QuickBooks Online (certified ProAdvisor, Silver tier), Xero, Excel, Google Sheets, Gusto, ADP, Bill.com, Shopify, Stripe, and Drake, Lacerte and UltraTax for CPA firms.",
-    book: "Great! <a href='/#book'>Pick a date and time here</a>. Calls are free, 20 minutes, no obligation.",
-    human: "Happy to connect you with our team:\nPhone: " + CFG.phone + "\nEmail: " + CFG.email + "\nOr use our <a href='/#contact'>contact form</a>. We reply within one business day.",
+    book: "Great! <a href='/contact#book'>Pick a date and time here</a>. Calls are free, 20 minutes, no obligation.",
+    human: "Happy to connect you with our team:\nPhone: " + CFG.phone + "\nEmail: " + CFG.email + "\nOr use our <a href='/contact'>contact form</a>. We reply within one business day.",
     security: "Your data stays safe: encrypted portal, multi-factor login, signed NDAs, read-only bank access and no files on personal devices.",
     fallback: "I’m not sure about that one. Our team can help directly:\nPhone: " + CFG.phone + "\nEmail: " + CFG.email + "\nOr choose a topic below."
   };

@@ -8,12 +8,13 @@ Plain HTML, CSS and JavaScript. No build step, no framework, no database.
 
 | URL | File |
 |---|---|
-| `/` | `index.html` — home, pricing, booking, FAQ, contact |
+| `/` | `index.html` — home, services, pricing, FAQ |
 | `/services` | `services.html` |
 | `/industries` | `industries.html` |
 | `/how-we-work` | `how-we-work.html` |
 | `/us-cpa-firms` | `us-cpa-firms.html` |
 | `/tax-calendar` | `tax-calendar.html` |
+| `/contact` | `contact.html` — booking calendar, contact form, contact details |
 
 Shared files live in `assets/`:
 
@@ -26,7 +27,7 @@ Shared files live in `assets/`:
 
 Open `assets/js/config.js` and paste:
 
-1. **`calendlyUrl`** — your Calendly event link (create a free 20-minute "Free Discovery Call" event at calendly.com). The booking section on the home page embeds it automatically.
+1. **`calendlyUrl`** — your Calendly event link (create a free 20-minute "Free Discovery Call" event at calendly.com). The booking section on the Contact page embeds it automatically.
 2. **`formspreeEndpoint`** — create a free form at formspree.io and paste its endpoint (looks like `https://formspree.io/f/xxxxxxx`). Contact form messages are emailed to you.
 
 Until these are set, the booking section shows "Request a call by email" and the contact form opens an email to sales@theledgermax.com, so nothing is broken.
