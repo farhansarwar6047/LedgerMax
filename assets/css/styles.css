@@ -81,6 +81,9 @@ p { margin: 0; }
 .header-cta { display: inline-flex; }
 .header-cta .btn { min-height: 44px; padding: 10px 20px; font-size: 14.5px; }
 .nav-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 12px; background: #fff; cursor: pointer; align-items: center; justify-content: center; }
+.nav-toggle .icon-close { display: none; }
+.nav-toggle[aria-expanded="true"] .icon-hamburger { display: none; }
+.nav-toggle[aria-expanded="true"] .icon-close { display: block; }
 @media (max-width: 1180px) {
   .nav-toggle { display: inline-flex; }
   .nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 0; padding: 8px 20px 18px; }
