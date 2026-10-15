@@ -142,7 +142,7 @@
       w.className = "calendly-inline-widget";
       w.style.minWidth = "320px";
       w.style.height = "700px";
-      w.setAttribute("data-url", CFG.calendlyUrl + (CFG.calendlyUrl.indexOf("?") > -1 ? "&" : "?") + "hide_gdpr_banner=1&primary_color=047857");
+      w.setAttribute("data-url", CFG.calendlyUrl + (CFG.calendlyUrl.indexOf("?") > -1 ? "&" : "?") + "hide_gdpr_banner=1&primary_color=047857&timezone=America%2FNew_York");
       booking.innerHTML = "";
       booking.appendChild(w);
     });
