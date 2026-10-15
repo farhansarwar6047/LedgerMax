@@ -220,7 +220,7 @@
     $("span", btn).textContent = o ? "Close" : "Chat with us";
     if (o) $("#chat-in").focus();
   }
-  btn.addEventListener("click", function () { setOpen(panel.hidden); });
+  btn.addEventListener("click", function () { window.location.href = "mailto:sales@theledgermax.com?subject=Chat%20enquiry&body=Hi%20The%20Ledger%20Max%20team%2C%0A%0AI%27d%20like%20to%20get%20in%20touch%20about%20your%20services.%0A%0APlease%20let%20me%20know%20how%20you%20can%20help.%0A%0AThanks%2C%0A"; });
   $(".chat-close", root).addEventListener("click", function () { setOpen(false); });
   $(".chat-form", root).addEventListener("submit", function (e) {
     e.preventDefault();
