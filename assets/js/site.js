@@ -14,6 +14,22 @@
     });
   }
 
+  /* Desktop nav-more dropdown */
+  var moreBtn = $(".nav-more-btn"), moreDrop = $(".nav-more-drop");
+  if (moreBtn && moreDrop) {
+    moreBtn.addEventListener("click", function () {
+      var open = moreDrop.hidden;
+      moreDrop.hidden = !open;
+      moreBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.addEventListener("click", function (e) {
+      if (!moreBtn.contains(e.target) && !moreDrop.contains(e.target)) {
+        moreDrop.hidden = true;
+        moreBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
 
   /* Button effects: arrow nudge + click ripple */
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
