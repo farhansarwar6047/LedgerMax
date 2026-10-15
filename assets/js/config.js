@@ -12,7 +12,7 @@
                      Leave empty and the contact form opens an email instead.
 */
 window.TLM_CONFIG = {
-  calendlyUrl: "",
+  calendlyUrl: "https://calendly.com/theledgermax",
   formspreeEndpoint: "",
   phone: "+1 (431) 478-7940",
   phoneHref: "+14314787940",

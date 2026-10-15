@@ -118,20 +118,22 @@
     update();
   }
 
-  /* Booking (Calendly) */
-  var booking = $("#booking-box");
-  if (booking) {
-    if (CFG.calendlyUrl) {
+  /* Booking (Calendly) — embeds in every .booking-box on the page */
+  var bookingBoxes = document.querySelectorAll(".booking-box");
+  if (bookingBoxes.length && CFG.calendlyUrl) {
+    bookingBoxes.forEach(function(booking) {
       var w = document.createElement("div");
       w.className = "calendly-inline-widget";
+      w.style.minWidth = "320px";
+      w.style.height = "700px";
       w.setAttribute("data-url", CFG.calendlyUrl + (CFG.calendlyUrl.indexOf("?") > -1 ? "&" : "?") + "hide_gdpr_banner=1&primary_color=047857");
       booking.innerHTML = "";
       booking.appendChild(w);
-      var s = document.createElement("script");
-      s.src = "https://assets.calendly.com/assets/external/widget.js";
-      s.async = true;
-      document.body.appendChild(s);
-    }
+    });
+    var s = document.createElement("script");
+    s.src = "https://assets.calendly.com/assets/external/widget.js";
+    s.async = true;
+    document.body.appendChild(s);
   }
 
   /* Contact form (Formspree, with email fallback) */
